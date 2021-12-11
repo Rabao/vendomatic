@@ -1,23 +1,23 @@
 package com.techelevator.view;
 
+import org.w3c.dom.ls.LSOutput;
+
 public class Product {
     private String slotId;
     private String name;
-    private String type;
     private double price;
+    private String type;
     private int quantity;
 
     public Product(){};
 
-    public Product(String slotId, String name, String type, int price, int quantity){{
-}       this.slotId = slotId;
+    public Product(String slotId, String name, double price, String type, int quantity) {
+        this.slotId = slotId;
         this.name = name;
-        this.type = type;
         this.price = price;
+        this.type = type;
         this.quantity = quantity;
     }
-
-
 
     public String getSlotId() {
         return slotId;
@@ -57,5 +57,13 @@ public class Product {
 
     public void setQuantity(int quantity) {
         this.quantity = quantity;
+    }
+
+    /**
+     * @return a formatted string: padding is applied between
+     * each column to align the properties of each product.
+     */
+    public String toString(){
+        return String.format("%1$-5s %2$-20s %3$-10s %4$-9s %5$-4s", slotId,name,price,type,quantity);
     }
 }

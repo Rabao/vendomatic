@@ -2,6 +2,7 @@ package com.techelevator.view;
 
 import java.io.File;
 import java.io.FileNotFoundException;
+import java.text.NumberFormat;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Scanner;
@@ -13,38 +14,7 @@ import java.util.Scanner;
  */
 public class Inventory {
     private List<Product> productList = new ArrayList<>();
-
-
-//    public void setProductList(File productFile) {
-//        File filePath = new File("vendingmachine.csv");
-//        Product[] menuProduct;
-//
-//        int lineCount = 0;
-//        try(Scanner file = new Scanner(filePath)){
-//            while(file.hasNext()){
-//
-//                //Iterates through each line in the file and counts it
-//                while(file.hasNext()) {
-//                    String lineInput = file.nextLine();
-//                    lineCount++;
-//                }
-//
-//                //Loops through each line and adds that line to a Product Array
-//                for(int x = 0; x < lineCount; x++){
-//                    String lineInput = file.nextLine(); //Stores current line
-//                    String[] inputArray = lineInput.split("\\|"); // Stores split string into an Array
-//                    menuProduct = new Product[lineCount]; // Initializes array with lineCount
-//
-//                    menuProduct[x].setSlotId(inputArray[0]);
-//                    menuProduct[x].setName(inputArray[1]);
-//                    menuProduct[x].setPrice(inputArray[2]);
-//                    menuProduct[x].setType(inputArray[3]);
-//                }
-//            }
-//        }catch(FileNotFoundException e){}
-//
-//    }
-
+    NumberFormat moneyFormat = NumberFormat.getCurrencyInstance();
     /**
      * 3.Vending machine inventory is stocked via an input file.
      * sets all inventory products in the vendingmachine.csv file
@@ -66,7 +36,7 @@ public class Inventory {
                 String lineInput = vendingMachineFileInput.nextLine();
                 String[] productAttributes = lineInput.split("\\|");
                 double productPrice = Double.parseDouble(productAttributes[2]);
-                Product product = new Product(productAttributes[0],productAttributes[1],productPrice,productAttributes[3],5);
+                Product product = new Product(productAttributes[0],productAttributes[1], productPrice,productAttributes[3],5);
                 productList.add(product);
             }
         }catch (FileNotFoundException fileNotFoundException) {

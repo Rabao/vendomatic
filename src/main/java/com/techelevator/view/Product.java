@@ -2,6 +2,8 @@ package com.techelevator.view;
 
 import org.w3c.dom.ls.LSOutput;
 
+import java.text.NumberFormat;
+
 public class Product {
     private String slotId;
     private String name;

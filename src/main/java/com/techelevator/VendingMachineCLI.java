@@ -3,6 +3,7 @@ package com.techelevator;
 import com.techelevator.view.Inventory;
 import com.techelevator.view.Menu;
 import com.techelevator.view.Product;
+import com.techelevator.view.VendorLog;
 
 import java.text.NumberFormat;
 import java.util.*;
@@ -23,6 +24,7 @@ public class VendingMachineCLI {
 	private static double balance = 0;
 	protected Scanner input = new Scanner(System.in);
 	NumberFormat moneyFormat = NumberFormat.getCurrencyInstance();
+	VendorLog logger = new VendorLog();
 
 	private final Menu menu;
 	private final Inventory inventory;
@@ -56,7 +58,7 @@ public class VendingMachineCLI {
 
 	public void purchaseMenuOptions(){
 			String choice = (String) menu.getChoiceFromOptions(PURCHASE_MENU_OPTIONS);
-
+			int money =0;
 			//7.i.Money currently deposited in the vending machine
 			System.out.println("\nCurrent Money Provided: " + moneyFormat.format((long) balance )+ "\n");
 
@@ -71,8 +73,9 @@ public class VendingMachineCLI {
 			if (choice.equals(PURCHASE_MENU_OPTION_FEED_MONEY)) {
 				//7.i. Allows the customer to feed money to the machine in whole dollar amounts.
 				System.out.println("\nEnter bill denomination in whole dollar amounts: ");
-				int money = input.nextInt();
+				money = input.nextInt();
 				balance += money;
+				logger.log("FEED MONEY",money,balance);
 
 			} else if (choice.equals(PURCHASE_MENU_OPTION_SELECT)) {
 				//7.ii. Shows the list of products available; records the customers slot selection in a variable
@@ -108,6 +111,7 @@ public class VendingMachineCLI {
 							//7.ii. If a product is sold out, the customer is informed and returned to the purchase menu
 							System.err.println("\nProduct at " + slotInput + " is out of stock.\n");
 						}
+						logger.log(products.get(slotInput).getName(),money,balance);
 						purchaseMenuOptions();
 
 					}

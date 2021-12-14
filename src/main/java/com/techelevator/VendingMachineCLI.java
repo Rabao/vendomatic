@@ -72,17 +72,16 @@ public class VendingMachineCLI {
 
 			if (choice.equals(PURCHASE_MENU_OPTION_FEED_MONEY)) {
 				//7.i. Allows the customer to feed money to the machine in whole dollar amounts.
-				System.out.println("\nEnter bill denomination in whole dollar amounts: ");
-				money = input.nextInt();
-				balance += money;
+				int moneyFeed = menu.getMoneyFeedFromUser();
+				balance += moneyFeed;
 				logger.log("FEED MONEY",money,balance);
 
 			} else if (choice.equals(PURCHASE_MENU_OPTION_SELECT)) {
 				//7.ii. Shows the list of products available; records the customers slot selection in a variable
 				// for comparison.
 				displayPurchaseOptions();
-				System.out.println("\nEnter your selection: ");
-				String slotInput = input.nextLine();
+				displayPurchaseOptions();
+				String slotInput = menu.getProductSlotId();
 
 
 					if(inventory.getProductList().stream().anyMatch(str -> str.getSlotId().equals(slotInput))
@@ -142,6 +141,5 @@ public class VendingMachineCLI {
 		Menu menu = new Menu(System.in, System.out);
 		VendingMachineCLI cli = new VendingMachineCLI(menu);
 		cli.run();
-
 	}
 }

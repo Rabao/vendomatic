@@ -50,4 +50,49 @@ public class Menu {
 		out.print(System.lineSeparator() + "Please choose an option >>> ");
 		out.flush();
 	}
+
+	/**
+	 * @return an integer. While choice is equal to null
+	 * prompt the user to insert the denomitation required
+	 * to successfully feed money into the vending machine.
+	 * Check if the money inserted by the user is the
+	 * correct denomination, otherwise alert invalid input
+	 *
+	 */
+	public Integer getMoneyFeedFromUser() {
+
+		Integer choice = null;
+
+		while (choice == null) {
+			out.println("Please insert $1, $2, $5, $10, or $20");
+			out.flush();
+			String userInput = in.nextLine();
+
+			if (userInput.equals("1") || userInput.equals("2") || userInput.equals("5") || userInput.equals("10")) {
+				choice = Integer.parseInt(userInput);
+			} else {
+				out.println("\n*** " + userInput + " is not a valid input ***\n");
+				out.flush();
+			}
+		}
+		return choice;
+	}
+
+	public String getProductSlotId() {
+		String choice = null;
+
+		while (choice == null) {
+			out.println("Please enter your selection");
+			out.flush();
+			String userInput = in.nextLine();
+			if (userInput.length() > 0) {
+				choice = userInput;
+			} else {
+				out.println("\n*** " + userInput + " is not a valid option ***\n");
+				out.flush();
+			}
+		}
+		return choice;
+	}
+
 }

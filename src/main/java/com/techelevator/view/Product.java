@@ -1,7 +1,5 @@
 package com.techelevator.view;
 
-import org.w3c.dom.ls.LSOutput;
-
 import java.text.NumberFormat;
 
 public class Product {
@@ -10,15 +8,18 @@ public class Product {
     private double price;
     private String type;
     private int quantity;
+    String status;
+    NumberFormat moneyFormat = NumberFormat.getCurrencyInstance();
 
     public Product(){};
 
-    public Product(String slotId, String name, double price, String type, int quantity) {
+    public Product(String slotId, String name, double price, String type, int quantity, String inventoryStatus) {
         this.slotId = slotId;
         this.name = name;
         this.price = price;
         this.type = type;
         this.quantity = quantity;
+        this.status = inventoryStatus;
     }
 
     public String getSlotId() {
@@ -61,11 +62,15 @@ public class Product {
         this.quantity = quantity;
     }
 
+    public void setStatus(String status) {
+        this.status = status;
+    }
+
     /**
      * @return a formatted string: padding is applied between
      * each column to align the properties of each product.
      */
     public String toString(){
-        return String.format("%1$-5s %2$-20s %3$-10s %4$-9s %5$-4s", slotId,name,price,type,quantity);
+        return String.format("%1$-5s %2$-20s %3$-10s %4$-9s %5$-4s %6$-8s", slotId,name,moneyFormat.format(price),type,quantity, status);
     }
 }

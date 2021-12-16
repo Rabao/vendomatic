@@ -12,7 +12,8 @@ import java.util.Scanner;
  * inventory.
  */
 public class Inventory {
-    private List<Product> productList = new ArrayList<>();
+    private final List<Product> productList = new ArrayList<>();
+
     /**
      * 3.Vending machine inventory is stocked via an input file.
      * sets all inventory products in the vendingmachine.csv file
@@ -34,7 +35,7 @@ public class Inventory {
                 String lineInput = vendingMachineFileInput.nextLine();
                 String[] productAttributes = lineInput.split("\\|");
                 double productPrice = Double.parseDouble(productAttributes[2]);
-                Product product = new Product(productAttributes[0],productAttributes[1], productPrice,productAttributes[3],5," ");
+                Product product = new Product(productAttributes[0],productAttributes[1],productPrice,productAttributes[3],5);
                 productList.add(product);
             }
         }catch (FileNotFoundException fileNotFoundException) {
@@ -58,5 +59,16 @@ public class Inventory {
         for(Product product : productList) {
             System.out.println(product);
         }
+    }
+
+
+    public String getProductBySlotId(String slot){
+        String productNameWIthSlotId = "";
+        for(Product product : productList){
+            if(product.getSlotId().equals(slot)){
+                productNameWIthSlotId = product.getName() + " " + product.getSlotId();
+            }
+        }
+        return productNameWIthSlotId;
     }
 }

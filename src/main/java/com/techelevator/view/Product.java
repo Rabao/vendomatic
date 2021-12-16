@@ -1,6 +1,5 @@
 package com.techelevator.view;
 
-import java.text.NumberFormat;
 
 public class Product {
     private String slotId;
@@ -9,17 +8,15 @@ public class Product {
     private String type;
     private int quantity;
     String status;
-    NumberFormat moneyFormat = NumberFormat.getCurrencyInstance();
 
     public Product(){};
 
-    public Product(String slotId, String name, double price, String type, int quantity, String inventoryStatus) {
+    public Product(String slotId, String name, double price, String type, int quantity) {
         this.slotId = slotId;
         this.name = name;
         this.price = price;
         this.type = type;
         this.quantity = quantity;
-        this.status = inventoryStatus;
     }
 
     public String getSlotId() {
@@ -66,11 +63,14 @@ public class Product {
         this.status = status;
     }
 
+    public String isOutOfStock(){
+        return quantity == 0 ? "Sold Out" : Integer.toString(quantity);
+    }
     /**
      * @return a formatted string: padding is applied between
      * each column to align the properties of each product.
      */
     public String toString(){
-        return String.format("%1$-5s %2$-20s %3$-10s %4$-9s %5$-4s %6$-8s", slotId,name,moneyFormat.format(price),type,quantity, status);
+        return String.format("%1$-5s %2$-20s %3$-10s %4$-9s %5$-4s", slotId,name,price,type,isOutOfStock());
     }
 }

@@ -3,31 +3,17 @@ package com.techelevator.view;
 import java.io.InputStream;
 import java.io.OutputStream;
 import java.io.PrintWriter;
-import java.text.NumberFormat;
 import java.util.Scanner;
 
 public class Menu {
 
-	private PrintWriter out;
-
-	public void setProvidedMoney(double providedMoney) {
-		this.providedMoney = providedMoney;
-	}
-
-	public double getProvidedMoney() {
-		return providedMoney;
-	}
-
-	private Scanner in;
-	private double providedMoney = 0;
-	NumberFormat moneyFormat = NumberFormat.getCurrencyInstance();
+	private final PrintWriter out;
+	private final Scanner in;
 
 	public Menu(InputStream input, OutputStream output) {
 		this.out = new PrintWriter(output);
 		this.in = new Scanner(input);
 	}
-
-	public Menu(){}
 
 	public Object getChoiceFromOptions(Object[] options) {
 		Object choice = null;
@@ -42,7 +28,7 @@ public class Menu {
 		Object choice = null;
 		String userInput = in.nextLine();
 		try {
-			int selectedOption = Integer.valueOf(userInput);
+			int selectedOption = Integer.parseInt(userInput);
 			if (selectedOption > 0 && selectedOption <= options.length) {
 				choice = options[selectedOption - 1];
 			}
@@ -59,54 +45,63 @@ public class Menu {
 		out.println();
 		for (int i = 0; i < options.length; i++) {
 			int optionNum = i + 1;
-			System.out.println(optionNum + ") " + options[i]);
+			out.println(optionNum + ") " + options[i]);
 		}
-		out.print(System.lineSeparator() + "Please choose an option >>> \n");
+		out.print(System.lineSeparator() + "Please choose an option >>> ");
 		out.flush();
 	}
 
-
 	/**
 	 * @return an integer. While choice is equal to null
-	 * prompt the user to insert the denomitation required
+	 * prompt the user to insert the denomination required
 	 * to successfully feed money into the vending machine.
 	 * Check if the money inserted by the user is the
 	 * correct denomination, otherwise alert invalid input
 	 *
 	 */
 	public Integer getMoneyFeedFromUser() {
-		Integer deposit = null;
 
-		while (deposit == null) {
-			out.println("\nEnter bill denomination in whole dollar amounts: ");
+		Integer choice = null;
+
+		while (choice == null) {
+			out.println("Please insert $1, $2, $5, $10");
+			out.flush();
+			String userInput = in.nextLine();
+			try {
+				if (userInput.equals("1") || userInput.equals("2") || userInput.equals("5") || userInput.equals("10")) {
+					choice = Integer.parseInt(userInput);
+				} else {
+					out.println("\n*** " + userInput + " is not a valid input ***\n");
+					out.flush();
+				}
+			}catch (NumberFormatException e){
+				System.out.println("eg: $1=1, $2=2,$5=5,$10=10" + e.getMessage());
+			}
+		}
+
+		return choice;
+	}
+
+	public String getSlotIdChoice() {
+		String choice = null;
+
+		while (choice == null) {
+			out.println("Please enter your selection");
 			out.flush();
 			String userInput = in.nextLine();
 
 			try {
-				deposit = Integer.parseInt(userInput);
-				this.providedMoney += deposit;
-				out.println("\nCurrent Money Provided: " + moneyFormat.format((long) this.providedMoney)+ "\n");
-			}catch(NullPointerException | NumberFormatException e){
-				System.err.println("*** Entry invalid. Please enter a whole dollar value. ***");
+				if (userInput.length() > 0 && userInput.length() <= 2) {
+					choice = userInput;
+				} else {
+					out.println("\n*** " + userInput + " is not a valid option ***\n");
+					out.flush();
+				}
+			}catch (StringIndexOutOfBoundsException e){
+				System.out.println(e.getMessage());
 			}
 		}
-		return deposit;
-	}
-
-	public String getProductSlotId() {
-		String choice = null;
-		while (choice == null) {
-			out.println("\nPlease enter your selection:");
-			out.flush();
-			String userInput = in.nextLine().substring(0,2);
-			if (userInput.length() > 0) {
-				choice = userInput;
-			} else {
-				out.println("\n*** " + userInput + " is not a valid option. ***\n");
-				out.flush();
-			}
-		}
-		return choice.toUpperCase();
+		return choice;
 	}
 
 }

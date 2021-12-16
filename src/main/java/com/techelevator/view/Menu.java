@@ -14,6 +14,10 @@ public class Menu {
 		this.providedMoney = providedMoney;
 	}
 
+	public double getProvidedMoney() {
+		return providedMoney;
+	}
+
 	private Scanner in;
 	private double providedMoney = 0;
 	NumberFormat moneyFormat = NumberFormat.getCurrencyInstance();
@@ -91,7 +95,6 @@ public class Menu {
 
 	public String getProductSlotId() {
 		String choice = null;
-
 		while (choice == null) {
 			out.println("\nPlease enter your selection:");
 			out.flush();

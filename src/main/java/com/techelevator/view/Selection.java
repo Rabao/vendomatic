@@ -67,7 +67,7 @@ public class Selection extends PurchaseMenu {
                     System.out.println("\nChew Chew, Yum!\n");
 
             } else{
-//                7.ii. If a product is sold out, the product name becomes "SOLD OUT" to indicate OOS
+                //7.ii. If a product is sold out, the product name becomes "SOLD OUT" to indicate OOS
                 getProductMap(inventory).get(slotInput).setStatus("SOLD OUT");
                 //7.ii. If a product is sold out, the customer is informed and returned to the purchase menu
                 System.err.println("\nProduct at " + slotInput + " is out of stock.\n");

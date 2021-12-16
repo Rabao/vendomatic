@@ -37,6 +37,8 @@ public class VendingMachineCLI {
 				}
 			} else if (choice.equals(MAIN_MENU_OPTION_EXIT)){
 				System.exit(0);
+			} else if(choice.equals(4)){
+				System.out.println("Test");
 			}
 		}
 	}

@@ -43,8 +43,13 @@ public class PurchaseMenu extends Menu{
             }
 
         } else if (choice.equals(PURCHASE_MENU_OPTION_FINISH)) {
+            ReturnChange change = new ReturnChange();
+            deposited = getProvidedMoney();
+            change.calculateChange(deposited);
             deposited = 0;
             setProvidedMoney(deposited);
+            System.out.println(change.getTotalCents() + " total coins returned.");
+            System.out.println("Quarters: " + change.getTotalQuarters() + ", Dimes: " + change.getTotalDimes() + ",  Nickels: " + change.getTotalNickels());
         }
     }
 

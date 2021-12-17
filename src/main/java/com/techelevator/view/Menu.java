@@ -9,10 +9,20 @@ public class Menu {
 
 	private final PrintWriter out;
 	private final Scanner in;
+	private double providedMoney = 0;
+
 
 	public Menu(InputStream input, OutputStream output) {
 		this.out = new PrintWriter(output);
 		this.in = new Scanner(input);
+	}
+
+	public void setProvidedMoney(double providedMoney) {
+		this.providedMoney = providedMoney;
+	}
+
+	public double getProvidedMoney() {
+		return providedMoney;
 	}
 
 	public Object getChoiceFromOptions(Object[] options) {
@@ -64,18 +74,18 @@ public class Menu {
 		Integer choice = null;
 
 		while (choice == null) {
-			out.println("Please insert $1, $2, $5, $10");
+			out.println("Enter bill denomination in whole dollar amounts: ");
 			out.flush();
 			String userInput = in.nextLine();
 			try {
-				if (userInput.equals("1") || userInput.equals("2") || userInput.equals("5") || userInput.equals("10")) {
+				if (Integer.valueOf(userInput) > 0) {
 					choice = Integer.parseInt(userInput);
 				} else {
 					out.println("\n*** " + userInput + " is not a valid input ***\n");
 					out.flush();
 				}
 			}catch (NumberFormatException e){
-				System.out.println("eg: $1=1, $2=2,$5=5,$10=10" + e.getMessage());
+				System.out.println("Please enter a valid whole number " + e.getMessage());
 			}
 		}
 
@@ -86,7 +96,7 @@ public class Menu {
 		String choice = null;
 
 		while (choice == null) {
-			out.println("Please enter your selection");
+			out.println("\nPlease enter your selection");
 			out.flush();
 			String userInput = in.nextLine();
 

@@ -1,5 +1,7 @@
 package com.techelevator.view;
 
+import com.techelevator.util.VendorLog;
+
 import java.util.HashMap;
 
 public class Selection extends Purchase{
@@ -8,7 +10,6 @@ public class Selection extends Purchase{
     private String productType;
     private double productPrice;
     private int productQty;
-    DollarCalculator global;
 
     public Selection(Inventory inventory) {
         super(inventory);
@@ -69,7 +70,7 @@ public class Selection extends Purchase{
                     System.out.println("\nChew Chew, Yum!\n");
 
                 setBalance(newBalance);
-                logger.log(getProductMap(inventory).get(slotInput).getName(),deposit, getBalance());
+                VendorLog.log(getProductMap(inventory).get(slotInput).getName(),deposit, getBalance());
 
             } else{
                 //7.ii. If a product is sold out, the customer is informed and returned to the purchase menu.

@@ -14,8 +14,6 @@ public class Purchase extends Menu {
     private VendingMachineCLI vend;
     private Selection buy;
 
-    VendorLog logger = new VendorLog();
-
     public Purchase(Inventory inventory){
         super(System.in, System.out); //Passes system input and output to parent class
         this.inventory = inventory;
@@ -49,7 +47,7 @@ public class Purchase extends Menu {
                     int moneyFeed = super.getMoneyFeedFromUser();
                     Calculator addToBalance = new DollarCalculator(moneyFeed * 100);
                     this.balance = this.balance.add(addToBalance);
-                    logger.log("FEED MONEY", balance, balance);
+                    VendorLog.log("FEED MONEY", balance, balance);
                     break;
 
                 case PURCHASE_MENU_OPTION_SELECT:

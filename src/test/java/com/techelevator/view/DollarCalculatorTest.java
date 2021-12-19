@@ -1,6 +1,5 @@
 package com.techelevator.view;
 
-import org.junit.Assert;
 import org.junit.Before;
 import org.junit.Test;
 
@@ -8,11 +7,12 @@ import static org.junit.Assert.*;
 
 public class DollarCalculatorTest {
 
-    DollarCalculator change = new DollarCalculator(57350);
-    double totalCents;
+    private DollarCalculator change;
+    private double totalCents;
 
     @Before
     public void setUp() throws Exception {
+        change = new DollarCalculator(57350);
         totalCents = change.getTotalAmountInCents();
     }
 
